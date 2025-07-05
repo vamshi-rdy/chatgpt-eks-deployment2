@@ -1,0 +1,22 @@
+version: 0.2
+env:
+  variables:
+    SERVICE_NAME: service-a
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
+      - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+  build:
+    commands:
+      - mvn clean package -DskipTests
+      - docker build -t $SERVICE_NAME:$IMAGE_TAG .
+      - docker tag $SERVICE_NAME:$IMAGE_TAG ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG
+  post_build:
+    commands:
+      - docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG
+      - echo Writing image definitions...
+      - printf '[{"name":"%s","imageUri":"%s"}]' "$SERVICE_NAME" "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG" > imagedefinitions.json
+artifacts:
+  files: imagedefinitions.json
