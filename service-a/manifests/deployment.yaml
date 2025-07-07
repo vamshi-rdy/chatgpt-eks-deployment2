@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: service-a
-          image: <REPLACE_WITH_ECR_IMAGE>
+          image: 253603915156.dkr.ecr.ap-south-1.amazonaws.com/service-a
           ports:
             - containerPort: 8080
           livenessProbe:
