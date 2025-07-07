@@ -6,10 +6,13 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password | docker login --username AWS --password-stdin 253603915156.dkr.ecr.ap-south-1.amazonaws.com/service-a
+      - aws ecr get-login-password | docker login --username vamshi --password-stdin 253603915156.dkr.ecr.ap-south-1.amazonaws.com/service-a
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
   build:
     commands:
+      - pwd
+      - ls -a
+      - pwd
       - mvn clean package -DskipTests
       - docker build -t $SERVICE_NAME:$IMAGE_TAG .
       - docker tag $SERVICE_NAME:$IMAGE_TAG 253603915156.dkr.ecr.ap-south-1.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG
