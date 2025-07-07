@@ -13,6 +13,7 @@ phases:
       - pwd
       - ls -a
       - pwd
+      - cd service-a
       - mvn clean package -DskipTests
       - docker build -t $SERVICE_NAME:$IMAGE_TAG .
       - docker tag $SERVICE_NAME:$IMAGE_TAG 253603915156.dkr.ecr.ap-south-1.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG
