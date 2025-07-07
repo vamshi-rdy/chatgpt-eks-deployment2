@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk-alpine as build
+FROM public.ecr.aws/docker/library/eclipse-temurin:17 as build
 WORKDIR /app
 COPY . .
 RUN ./mvnw clean package -DskipTests
