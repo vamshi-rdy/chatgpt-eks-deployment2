@@ -1,10 +1,11 @@
 FROM public.ecr.aws/docker/library/eclipse-temurin:17 as build
 WORKDIR /app
+RUN ls -a
 COPY . .
 RUN pwd
 RUN ls -a
 RUN mvnw clean package -DskipTests
 
-FROM eclipse-temurin:17-jre-alpine
+FROM public.ecr.aws/docker/library/eclipse-temurin:17-jre-alpine
 COPY --from=build /app/target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]
