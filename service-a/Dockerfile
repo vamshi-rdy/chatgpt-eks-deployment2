@@ -4,7 +4,7 @@ RUN ls -a
 COPY . .
 RUN pwd
 RUN ls -a
-COPY src/service-a/target/*.jar /target/*.jar
+COPY target/*.jar /target/*.jar
 # RUN mvnw clean package -DskipTests
 
 FROM public.ecr.aws/docker/library/eclipse-temurin:17-jre-alpine
