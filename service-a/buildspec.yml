@@ -14,7 +14,8 @@ phases:
       - ls -a
       - pwd
       - cd service-a
-      - mvn clean package -DskipTests
+      - mvn clean package
+      - cp target/*.jar ../app.jar  # Save JAR before Docker build
       - docker build -t $SERVICE_NAME:$IMAGE_TAG .
       - docker tag $SERVICE_NAME:$IMAGE_TAG 253603915156.dkr.ecr.ap-south-1.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG
   post_build:
@@ -22,8 +23,8 @@ phases:
       - docker push 253603915156.dkr.ecr.ap-south-1.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG
       - echo Writing image definitions...
       - printf '[{"name":"%s","imageUri":"%s"}]' "$SERVICE_NAME" "253603915156.dkr.ecr.ap-south-1.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG" > imagedefinitions.json
-      - cd ..
-      - cp target/*.jar ../app.jar  # Ensure this is your built JAR file
+      # - cd ..
+      # - cp target/*.jar ../app.jar  # Ensure this is your built JAR file
       - cat imagedefinitions.json
 artifacts:
   files: 
