@@ -23,6 +23,7 @@ phases:
       - echo Writing image definitions...
       - printf '[{"name":"%s","imageUri":"%s"}]' "$SERVICE_NAME" "253603915156.dkr.ecr.ap-south-1.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG" > imagedefinitions.json
       - cd ..
+      - cp target/*.jar ../app.jar  # Ensure this is your built JAR file
       - cat imagedefinitions.json
 artifacts:
   files: 
