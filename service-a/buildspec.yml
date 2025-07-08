@@ -22,5 +22,8 @@ phases:
       - docker push 253603915156.dkr.ecr.ap-south-1.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG
       - echo Writing image definitions...
       - printf '[{"name":"%s","imageUri":"%s"}]' "$SERVICE_NAME" "253603915156.dkr.ecr.ap-south-1.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG" > imagedefinitions.json
+      - cat imagedefinitions.json
 artifacts:
-  files: imagedefinitions.json
+  files: 
+    - imagedefinitions.json
+    - target/*.jar
