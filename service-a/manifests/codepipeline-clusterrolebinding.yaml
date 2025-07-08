@@ -1,0 +1,13 @@
+# file: codepipeline-clusterrolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: codepipeline-deployer-binding
+subjects:
+  - kind: User
+    name: arn:aws:iam::253603915156:role/service-role/AWSCodePipelineServiceRole-ap-south-1-chatgpt-pipeline
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
