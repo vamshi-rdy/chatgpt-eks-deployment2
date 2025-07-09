@@ -31,4 +31,4 @@ artifacts:
   files: 
     - imagedefinitions.json
     - app.jar
-    - **/deployment-output.yaml
+    - manifests/deployment-output.yaml
