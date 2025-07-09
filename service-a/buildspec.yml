@@ -22,7 +22,7 @@ phases:
     commands:
       - docker push 253603915156.dkr.ecr.ap-south-1.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG
       - echo Updating deployment manifest with image tag...
-      - sed "s|{{IMAGE_TAG}}|$IMAGE_TAG|g" service-a/manifests/deployment.yaml > service-a/manifests/deployment-output.yaml
+      - sed "s|{{IMAGE_TAG}}|$IMAGE_TAG|g" manifests/deployment.yaml > manifests/deployment-output.yaml
       - cat service-a/manifests/deployment-output.yaml
       - echo Writing image definitions...
       - printf '[{"name":"%s","imageUri":"%s"}]' "$SERVICE_NAME" "253603915156.dkr.ecr.ap-south-1.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG" > imagedefinitions.json
@@ -31,4 +31,4 @@ artifacts:
   files: 
     - imagedefinitions.json
     - app.jar
-    - service-a/manifests/deployment-output.yaml
+    - manifests/deployment-output.yaml
