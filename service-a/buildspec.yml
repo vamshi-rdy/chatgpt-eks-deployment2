@@ -28,7 +28,8 @@ phases:
       - printf '[{"name":"%s","imageUri":"%s"}]' "$SERVICE_NAME" "253603915156.dkr.ecr.ap-south-1.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG" > imagedefinitions.json
       - cat imagedefinitions.json
 artifacts:
+  base-directory: service-a
   files: 
     - imagedefinitions.json
-    - app.jar
     - manifests/deployment-output.yaml
+    - ../app.jar
