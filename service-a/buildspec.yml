@@ -21,12 +21,14 @@ phases:
   post_build:
     commands:
       - docker push 253603915156.dkr.ecr.ap-south-1.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG
+      - echo Updating deployment manifest with image tag...
+      - sed "s|{{IMAGE_TAG}}|$IMAGE_TAG|g" service-a/manifests/deployment.yaml > service-a/manifests/deployment-output.yaml
+      - cat service-a/manifests/deployment-output.yaml
       - echo Writing image definitions...
       - printf '[{"name":"%s","imageUri":"%s"}]' "$SERVICE_NAME" "253603915156.dkr.ecr.ap-south-1.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG" > imagedefinitions.json
-      # - cd ..
-      # - cp target/*.jar ../app.jar  # Ensure this is your built JAR file
       - cat imagedefinitions.json
 artifacts:
   files: 
     - imagedefinitions.json
     - app.jar
+    - deployment-output.yaml
