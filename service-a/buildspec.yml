@@ -15,7 +15,9 @@ phases:
       - pwd
       - cd service-a
       - mvn clean package
-      - cp target/*.jar /app.jar  # Save JAR before Docker build
+      - pwd
+      - ls -a
+      - cp target/*.jar app.jar  # Save JAR before Docker build
       - pwd
       - ls -a
       - cd target
