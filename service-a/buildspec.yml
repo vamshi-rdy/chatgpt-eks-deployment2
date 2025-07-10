@@ -16,6 +16,12 @@ phases:
       - cd service-a
       - mvn clean package
       - cp target/*.jar ../app.jar  # Save JAR before Docker build
+      - pwd
+      - ls -a
+      - cd ..
+      - pwd
+      - ls -a
+      - cd service-a
       - docker build -t $SERVICE_NAME:$IMAGE_TAG .
       - docker tag $SERVICE_NAME:$IMAGE_TAG 253603915156.dkr.ecr.ap-south-1.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG
   post_build:
@@ -30,6 +36,9 @@ phases:
       - echo Writing image definitions...
       - printf '[{"name":"%s","imageUri":"%s"}]' "$SERVICE_NAME" "253603915156.dkr.ecr.ap-south-1.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG" > imagedefinitions.json
       - cat imagedefinitions.json
+      - pwd
+      - ls -a
+      - pwd
 artifacts:
   base-directory: service-a
   files: 
