@@ -15,11 +15,14 @@ phases:
       - pwd
       - cd service-a
       - mvn clean package
-      - cp target/*.jar ../app.jar  # Save JAR before Docker build
+      - cp target/*.jar /app.jar  # Save JAR before Docker build
       - pwd
+      - ls -a
+      - cd target
       - ls -a
       - cd ..
       - pwd
+      - cd ..
       - ls -a
       - cd service-a
       - docker build -t $SERVICE_NAME:$IMAGE_TAG .
@@ -28,6 +31,8 @@ phases:
     commands:
       - docker push 253603915156.dkr.ecr.ap-south-1.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG
       - echo Updating deployment manifest with image tag...
+      - pwd
+      - ls -a
       - sed "s|{{IMAGE_TAG}}|$IMAGE_TAG|g" manifests/deployment.yaml > manifests/deployment-output.yaml
       - cat manifests/deployment-output.yaml
       - pwd
@@ -44,4 +49,4 @@ artifacts:
   files: 
     - imagedefinitions.json
     - manifests/deployment-output.yaml
-    - ../app.jar
+    - app.jar
