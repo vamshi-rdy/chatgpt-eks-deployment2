@@ -55,4 +55,5 @@ artifacts:
     - imagedefinitions.json
     - manifests/deployment-output.yaml
     - manifests/service.yaml
+    - manifests/ingress.yaml
     - app.jar
