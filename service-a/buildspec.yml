@@ -24,6 +24,9 @@ phases:
       - echo Updating deployment manifest with image tag...
       - sed "s|{{IMAGE_TAG}}|$IMAGE_TAG|g" manifests/deployment.yaml > manifests/deployment-output.yaml
       - cat manifests/deployment-output.yaml
+      - pwd
+      - ls -a
+      - pwd
       - echo Writing image definitions...
       - printf '[{"name":"%s","imageUri":"%s"}]' "$SERVICE_NAME" "253603915156.dkr.ecr.ap-south-1.amazonaws.com/$SERVICE_NAME:$IMAGE_TAG" > imagedefinitions.json
       - cat imagedefinitions.json
